@@ -212,7 +212,7 @@ body.loaded .bar .knob{left:var(--xp)}
         </div>
       </div>
     </div>
-    <div class="capy" id="capy"><img src="assets/capybara.webp" alt="Capy mascot"></div>
+    <div class="capy" id="capy"><img id="capyImg" src="assets/capy-static.png" alt="Capy mascot"></div>
   </section>
 
   <!-- GRID -->
@@ -344,6 +344,16 @@ function spinWheel(btn){
 }
 (function(){let s=3*3600+12*60+40;const el=document.getElementById('fsTimer');
   setInterval(()=>{s=(s-1+86400)%86400;const h=String(Math.floor(s/3600)).padStart(2,'0'),m=String(Math.floor(s%3600/60)).padStart(2,'0'),x=String(s%60).padStart(2,'0');el.textContent=`next ${h}:${m}:${x}`;},1000);})();
+/* capy mascot: play the animation once, freeze on static, replay only after 30s */
+(function(){
+  const img=document.getElementById('capyImg'); if(!img)return;
+  const STATIC='assets/capy-static.png', ANIM='assets/capybara.webp';
+  const PLAY=4950, REST=30000; let t1,t2;               /* PLAY≈one loop, REST=pause between plays */
+  const pre=new Image(); pre.src=ANIM;                  /* preload so first play is instant */
+  function playOnce(){ img.src=ANIM; clearTimeout(t1); t1=setTimeout(()=>{ img.src=STATIC; }, PLAY); }
+  function loop(){ playOnce(); clearTimeout(t2); t2=setTimeout(loop, PLAY+REST); }
+  setTimeout(loop,1200);
+})();
 addEventListener('load',()=>{requestAnimationFrame(()=>document.body.classList.add('loaded'));
   document.querySelectorAll('.bal .num').forEach(el=>countUp(el,parseFloat(el.dataset.count),el.dataset.fmt,1100));});
 </script>
