@@ -1,0 +1,15 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="avatar-circle">
+<g clip-path="url(#clip0_0_6)">
+<rect width="150" height="150" rx="75" fill="var(--fill-0, #291F53)"/>
+<circle id="p-head" cx="75" cy="57" r="23" fill="var(--fill-0, #6B609E)"/>
+<ellipse id="p-body" cx="75" cy="133" rx="54" ry="43" fill="var(--fill-0, #6B609E)"/>
+</g>
+<rect x="2.5" y="2.5" width="145" height="145" rx="72.5" stroke="var(--stroke-0, #352A5D)" stroke-width="5"/>
+</g>
+<defs>
+<clipPath id="clip0_0_6">
+<rect width="150" height="150" rx="75" fill="white"/>
+</clipPath>
+</defs>
+</svg>
