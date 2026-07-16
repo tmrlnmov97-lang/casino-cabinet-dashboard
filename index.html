@@ -67,7 +67,7 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
 .xp-cap b{color:#e7e0f6;font-weight:700}
 .xp-cap span{color:#8e82b4}
 .capy{position:absolute;left:1113.5px;top:-1.5px;width:213px;height:222px;overflow:hidden;pointer-events:none;z-index:1} /* 71:535 */
-.capy img{position:absolute;top:0;left:-1px;height:262px;width:auto;display:block} /* character drawn at Figma scale, clipped by the box */
+.capy img{position:absolute;left:-101.2%;top:0;width:210.59%;height:117.89%;max-width:none;display:block} /* exact crop from 71:535 */
 .capy.cheer img{animation:capyCheer .7s ease} /* ANIM */
 @keyframes capyCheer{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-3deg) translateY(-8px)}60%{transform:rotate(2deg) translateY(-4px)}}
 
@@ -221,7 +221,7 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
         </div>
       </div>
     </div>
-    <div class="capy" id="capy"><img id="capyImg" src="assets/capy-static.png" alt="Capy mascot"></div>
+    <div class="capy" id="capy"><img id="capyImg" src="assets/capy-figma.png" alt="Capy mascot"></div>
   </section>
 
   <!-- GRID -->
@@ -361,7 +361,9 @@ function spinWheel(btn){
   const pre=new Image(); pre.src=ANIM;                  /* preload so first play is instant */
   function playOnce(){ img.src=ANIM; clearTimeout(t1); t1=setTimeout(()=>{ img.src=STATIC; }, PLAY); }
   function loop(){ playOnce(); clearTimeout(t2); t2=setTimeout(loop, PLAY+REST); }
-  setTimeout(loop,1200);
+  /* Disabled: Figma has the POINTING capy, but the Runway clip is the HANDS-IN-POCKETS pose.
+     Re-enable (uncomment) once a pointing-pose animation exists, or if the pose swap is OK. */
+  // setTimeout(loop,1200);
 })();
 addEventListener('load',()=>{requestAnimationFrame(()=>document.body.classList.add('loaded'));
   document.querySelectorAll('.bal .num').forEach(el=>countUp(el,parseFloat(el.dataset.count),el.dataset.fmt,1100));});
