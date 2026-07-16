@@ -59,8 +59,8 @@ body.loaded .bar .fill{width:var(--xp)}
 body.loaded .bar .knob{left:var(--xp)}
 .xp-cap{display:flex;gap:7px;align-items:center;font-size:15px;color:#8e82b4}
 .xp-cap b{color:#e7e0f6;font-weight:700}
-.capy{position:absolute;right:22px;top:10px;height:280px;pointer-events:none;z-index:1}
-.capy img{height:100%;width:auto;display:block;filter:drop-shadow(0 10px 22px rgba(0,0,0,.45))}
+.capy{position:absolute;right:22px;top:10px;height:280px;pointer-events:none;z-index:1;mix-blend-mode:lighten} /* black bg of the render melts into the dark card */
+.capy img{height:100%;width:auto;display:block}
 .capy.cheer img{animation:capyCheer .7s ease} /* ANIM */
 @keyframes capyCheer{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-3deg) translateY(-8px)}60%{transform:rotate(2deg) translateY(-4px)}}
 
