@@ -228,28 +228,28 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
 .w-fs-b{font-family:'Inter',sans-serif;font-weight:400;font-size:11px;color:#b7acd9}
 .w-fs-timer{padding:7px 10px;border-radius:7px;background:#2f2063;font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;color:#c9bdff;white-space:nowrap}
 
-/* ---------- redeem (HD — State A, Figma 163:44) ---------- */
-.redeem-hd{display:flex;flex-direction:column;padding:24px;border-radius:22px;background:linear-gradient(160deg,#241350,#20114a);border:1px solid #3a2a6b}
+/* ---------- redeem (HD — State B below-min, Figma 163:80) ---------- */
+.redeem-hd{display:flex;flex-direction:column;padding:24px;border-radius:22px;background:linear-gradient(156deg,#241350 11%,#20114a 89%);border:1px solid #3a2a6b}
 .redeem-hd .rd-t{font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;color:#fff}
 .redeem-hd .rd-s{font-family:'Inter',sans-serif;font-weight:400;font-size:13px;color:#b7acd9;margin-top:3px}
-.rd-total{display:flex;align-items:center;justify-content:space-between;margin-top:26px}
+.rd-total{display:flex;align-items:center;justify-content:space-between;margin-top:24px}
 .rd-total .l{font-family:'Inter',sans-serif;font-weight:400;font-size:14px;color:#b7acd9}
 .rd-total .v{font-family:'Fredoka',sans-serif;font-weight:700;font-size:24px;color:#fff}
-.rd-avail{margin-top:16px;padding:16px 18px;border-radius:15px;background:rgba(43,224,198,.07);border:1px solid rgba(61,220,151,.22)}
-.rd-avail .r{display:flex;align-items:center;justify-content:space-between}
-.rd-avail .rl{font-family:'Inter',sans-serif;font-weight:400;font-size:12px;letter-spacing:.72px;color:#5fe0b0}
-.rd-avail .rv{font-family:'Fredoka',sans-serif;font-weight:700;font-size:26px;color:#3ddc97}
-.rd-avail .nt{font-family:'Inter',sans-serif;font-weight:400;font-size:12px;color:#8fe6c5;margin-top:3px}
+.rd-avail{margin-top:16px;padding:16px 18px;border-radius:15px;background:#1c103f;border:1px solid #2b2152}
+.rd-avail .rl{font-family:'Inter',sans-serif;font-weight:400;font-size:12px;letter-spacing:.72px;color:#b7acd9}
+.rd-avail .rv{font-family:'Fredoka',sans-serif;font-weight:700;font-size:26px;color:#fff;margin-top:2px}
+.rd-pill{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:4px 10px;border-radius:999px;background:rgba(245,197,66,.12)}
+.rd-pill img{width:14px;height:14px;display:block}
+.rd-pill span{font-family:'Inter',sans-serif;font-weight:600;font-size:12px;color:#f5c542;white-space:nowrap}
 .rd-locked{margin-top:12px;padding:16px 18px;border-radius:15px;background:#160c33;border:1px dashed #3a2a6b;opacity:.9}
 .rd-locked .r{display:flex;align-items:center;justify-content:space-between}
 .rd-locked .rl{font-family:'Inter',sans-serif;font-weight:600;font-size:12px;letter-spacing:.72px;color:#7b6fa6}
 .rd-locked .rv{font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;color:#b7acd9}
 .rd-wager{height:6px;border-radius:999px;background:#251c42;overflow:hidden;margin-top:12px}
-.rd-wager i{display:block;height:100%;width:40%;border-radius:999px;background:linear-gradient(90deg,#ffc53d,#f5a00b)} /* gold */
+.rd-wager i{display:block;height:100%;width:40%;border-radius:999px;background:#ffc53d} /* gold, 115/288 */
 .rd-played{font-family:'Inter',sans-serif;font-weight:400;font-size:12px;color:#7b6fa6;margin-top:8px}
 .rd-played b{font-family:'Fredoka',sans-serif;font-weight:600;color:#c9bdff}
-.rd-btn{display:flex;align-items:center;justify-content:center;padding:15px;border-radius:14px;margin-top:18px;background:linear-gradient(180deg,#f5c542,#8a5a00);color:#1a1200;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:16px;box-shadow:0 0 20px rgba(245,197,66,.45);cursor:pointer;border:0}
-.rd-min{text-align:center;font-family:'Inter',sans-serif;font-weight:400;font-size:12px;color:#7b6fa6;margin-top:12px}
+.rd-btn.disabled{display:flex;align-items:center;justify-content:center;padding:15px;border-radius:14px;margin-top:18px;background:#1a1330;border:1px solid #2b2152;color:#5b5182;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:16px;cursor:not-allowed}
 
 /* ---------- confetti + toast ---------- */
 .confetti{position:fixed;width:9px;height:14px;border-radius:2px;pointer-events:none;z-index:999}
@@ -415,15 +415,18 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
         </div>
       </div>
 
-      <!-- REDEEM (HD — State A) -->
+      <!-- REDEEM (HD — State B · below minimum) -->
       <div class="redeem-hd">
         <div class="rd-t">Redeem Sweep Coins</div>
         <div class="rd-s">Cash out your Sweep Coins</div>
-        <div class="rd-total"><div class="l">Total balance</div><div class="v">38.20 SC</div></div>
-        <div class="rd-avail"><div class="r"><div class="rl">AVAILABLE TO REDEEM</div><div class="rv">24.00 SC</div></div><div class="nt">Ready to cash out</div></div>
+        <div class="rd-total"><div class="l">Total balance</div><div class="v">20.60 SC</div></div>
+        <div class="rd-avail">
+          <div class="rl">AVAILABLE TO REDEEM</div>
+          <div class="rv">6.40 SC</div>
+          <div class="rd-pill"><img src="assets/warn.svg" alt=""><span>Redeem from 10.00 SC — you need 3.60</span></div>
+        </div>
         <div class="rd-locked"><div class="r"><div class="rl">LOCKED / IN PROGRESS</div><div class="rv">14.20 SC</div></div><div class="rd-wager"><i></i></div><div class="rd-played"><b>5.68</b> / 14.20 SC played through</div></div>
-        <button class="rd-btn" onclick="toast('Redeem request sent — 24.00 SC')">Redeem 24.00 SC</button>
-        <div class="rd-min">Minimum redemption: 10.00 SC</div>
+        <div class="rd-btn disabled">Redeem 10.00 SC</div>
       </div>
     </div>
   </div>
