@@ -172,9 +172,9 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
 .missions-hd .ht{display:flex;flex-direction:column;gap:3px}
 .missions-hd .ht .t{font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;color:#fff}
 .missions-hd .ht .s{font-family:'Inter',sans-serif;font-weight:400;font-size:13px;color:#b7acd9}
-.m-capy{position:absolute;left:802px;top:-1px;width:124px;height:130px;overflow:hidden;pointer-events:none;z-index:0}   /* behind the rows, like Figma (rows drawn after image 13) */
-.m-capy img{position:absolute;left:-.05%;top:-20.7%;width:100.09%;height:143.28%;max-width:none;display:block}
-.m-bubble{position:absolute;left:693px;top:14px;z-index:2;padding:8px 14px;background:#fff;border-radius:14px 14px 4px 14px;box-shadow:0 8px 18px rgba(0,0,0,.3);font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;color:#160c33;white-space:nowrap}
+.m-capy{position:absolute;right:20px;top:-6px;width:172px;height:169px;overflow:hidden;pointer-events:none;z-index:0}   /* anchored to right edge; behind the rows (rows drawn over it) */
+.m-capy img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 8px 18px rgba(0,0,0,.35))}
+.m-bubble{position:absolute;right:184px;top:18px;z-index:2;padding:8px 14px;background:#fff;border-radius:14px 14px 4px 14px;box-shadow:0 8px 18px rgba(0,0,0,.3);font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;color:#160c33;white-space:nowrap}
 .mrows{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;width:100%}   /* rows over the capy */
 .mission{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:16px;border-radius:15px;overflow:hidden;width:100%;background:#1c103f;border:1px solid #2b1c56}
 .mission .m-l{flex:0 1 680px;min-width:0;display:flex;flex-direction:column;gap:8px}
@@ -439,7 +439,7 @@ body.loaded .reveal{opacity:1;transform:none;transition:opacity .6s ease,transfo
       <div class="missions-hd reveal" style="--rd:.42s">
         <div class="ht"><div class="t">Missions</div><div class="s">Complete tasks to earn rewards</div></div>
         <div class="m-bubble">1 ready — grab it!</div>
-        <div class="m-capy"><img src="assets/m-capy.png" alt=""></div>
+        <div class="m-capy"><img src="assets/m-capy-anim.webp" alt="Capy mascot"></div>
         <div class="mrows">
           <div class="mission m-play">
             <div class="m-l"><div class="m-title">Play 5 games</div><div class="m-prog"><div class="m-track"><div class="m-fill" style="width:100%"></div></div><div class="m-pc">3/5</div></div></div>
