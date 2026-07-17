@@ -68,6 +68,9 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
 .xp-cap span{color:#8e82b4}
 .capy{position:absolute;left:1113.5px;top:-1.5px;width:213px;height:222px;overflow:hidden;pointer-events:none;z-index:1} /* 71:535 */
 .capy img{position:absolute;left:-1px;top:0;height:262px;width:auto;max-width:none;display:block;filter:drop-shadow(0 10px 22px rgba(0,0,0,.4))} /* true alpha — no blend, real colors */
+.xp-bubble{position:absolute;top:16px;right:250px;z-index:4;padding:11px 20px;background:#fff;border-radius:24px;box-shadow:0 12px 28px rgba(0,0,0,.4);font-family:'Fredoka',sans-serif;font-weight:600;font-size:19px;color:#160c33;white-space:nowrap;opacity:0;transform:translateY(8px) scale(.9);transform-origin:70% 130%;transition:opacity .25s ease, transform .32s cubic-bezier(.2,1.5,.4,1);pointer-events:none} /* ANIM: shows when capy points */
+.xp-bubble.show{opacity:1;transform:translateY(0) scale(1)}
+.xp-bubble::after{content:"";position:absolute;right:34px;bottom:-6px;width:16px;height:16px;background:#fff;border-radius:0 0 5px 0;transform:rotate(45deg)}
 .capy.cheer img{animation:capyCheer .7s ease} /* ANIM */
 @keyframes capyCheer{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-3deg) translateY(-8px)}60%{transform:rotate(2deg) translateY(-4px)}}
 
@@ -285,6 +288,7 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
       </div>
     </div>
     <div class="capy" id="capy"><img id="capyImg" src="assets/capy-rest.png" alt="Capy mascot"></div>
+    <div class="xp-bubble" id="xpBubble">“1,750 XP to go!”</div>
   </section>
 
   <!-- GRID -->
@@ -461,9 +465,14 @@ function spinWheel(btn){
 (function(){
   const img=document.getElementById('capyImg'); if(!img)return;
   const STATIC='assets/capy-rest.png', ANIM='assets/capy-anim.webp';
-  const PLAY=4900, REST=30000; let t1,t2;               /* PLAY = one clip (121f × 40ms), REST = pause between plays */
+  const PLAY=4900, REST=30000; let t1,t2,tb1,tb2;       /* PLAY = one clip, REST = pause between plays */
+  const bubble=document.getElementById('xpBubble');
   const pre=new Image(); pre.src=ANIM;                  /* preload so first play is instant */
-  function playOnce(){ img.src=ANIM; clearTimeout(t1); t1=setTimeout(()=>{ img.src=STATIC; }, PLAY); }
+  function playOnce(){ img.src=ANIM; clearTimeout(t1); t1=setTimeout(()=>{ img.src=STATIC; }, PLAY);
+    if(bubble){ clearTimeout(tb1); clearTimeout(tb2);   /* bubble pops when the capy points (mid-clip), then hides */
+      tb1=setTimeout(()=>bubble.classList.add('show'),1500);
+      tb2=setTimeout(()=>bubble.classList.remove('show'),3500);
+    } }
   function loop(){ playOnce(); clearTimeout(t2); t2=setTimeout(loop, PLAY+REST); }
   setTimeout(loop,1200);   /* rests hands-in-pockets → every 30s pulls the hand out and points */
 })();
