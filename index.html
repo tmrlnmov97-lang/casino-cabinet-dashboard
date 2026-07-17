@@ -165,22 +165,41 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
 .btn.mini{background:#fff;border:1.5px solid var(--emph);color:var(--ink);padding:8px 18px;font-size:12.5px}
 .btn.mini:hover{background:var(--emph);color:#fff}
 
-/* ---------- missions (wireframe) ---------- */
-.mission{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:10px;border:1.25px solid var(--line);background:#FCFCFD;margin-bottom:10px}
-.mission:last-child{margin-bottom:0}
-.mission.ready{border:2px solid var(--emph)}
-.mission .m-ic{width:36px;height:36px;border-radius:9px;background:var(--fill);border:1.25px solid var(--line2);flex:0 0 auto}
-.mission .mid{flex:1;min-width:0}
-.mission .mt{font-weight:500;font-size:14px}
-.mission .prog{display:flex;align-items:center;gap:10px;margin-top:8px}
-.mission .track{flex:1;height:6px;border-radius:999px;background:var(--fill);overflow:hidden;border:1px solid var(--line)}
-.mission .track i{display:block;height:100%;border-radius:999px;background:#B4B4BE;transition:width .8s cubic-bezier(.22,1,.36,1)} /* ANIM */
-.mission.ready .track i{background:#7a7a86}
-.mission .pc{font-size:12px;color:var(--ink2);white-space:nowrap}
-.mission .rw{font-weight:600;font-size:12.5px;color:#55555f}
-.mission .done{color:#7a7a86;font-weight:700;font-size:16px}
-.mission .chev{color:var(--ink3);font-size:18px}
-.mascot-inline{display:flex;align-items:center;gap:8px}
+/* ---------- missions (HD — Figma 130:170, exact) ---------- */
+.missions-hd{position:relative;display:flex;flex-direction:column;gap:18px;align-items:flex-start;padding:24px 26px;border-radius:22px;overflow:hidden;background:linear-gradient(170.57deg,#241350 10.99%,#20114a 89.01%);border:1px solid #3a2a6b}
+.missions-hd .ht{display:flex;flex-direction:column;gap:3px}
+.missions-hd .ht .t{font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;color:#fff}
+.missions-hd .ht .s{font-family:'Inter',sans-serif;font-weight:400;font-size:13px;color:#b7acd9}
+.m-capy{position:absolute;left:802px;top:-1px;width:124px;height:130px;overflow:hidden;pointer-events:none}
+.m-capy img{position:absolute;left:-.05%;top:-20.7%;width:100.09%;height:143.28%;max-width:none;display:block}
+.m-bubble{position:absolute;left:693px;top:14px;z-index:2;padding:8px 14px;background:#fff;border-radius:14px 14px 4px 14px;box-shadow:0 8px 18px rgba(0,0,0,.3);font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;color:#160c33;white-space:nowrap}
+.mrows{display:flex;flex-direction:column;gap:12px;width:100%}
+.mission{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:16px;border-radius:15px;overflow:hidden;width:100%;background:#1c103f;border:1px solid #2b1c56}
+.mission .m-l{flex:0 1 680px;min-width:0;display:flex;flex-direction:column;gap:8px}
+.mission .m-title{font-family:'Fredoka',sans-serif;font-weight:500;font-size:16px;color:#fff;white-space:nowrap}
+.mission .m-prog{display:flex;align-items:flex-end;gap:8px;width:100%}
+.mission .m-track{flex:1;min-width:0;height:6px;border-radius:999px;background:#160c33;overflow:hidden;position:relative}
+.mission .m-fill{position:absolute;left:0;top:0;height:6px;border-radius:999px;background:#7c4dff;transition:width .8s cubic-bezier(.22,1,.36,1)} /* ANIM */
+.mission .m-pc{font-family:'Fredoka',sans-serif;font-weight:400;font-size:12px;color:#b7acd9;white-space:nowrap}
+.mission .m-right{display:flex;align-items:center;gap:16px;flex:0 0 auto}
+.mission .m-reward{display:flex;align-items:center;gap:6px}
+.m-ric{position:relative;width:19px;height:19px;border-radius:23px;overflow:hidden;flex:0 0 auto;box-shadow:inset 0 0 18px rgba(245,197,66,.14)}
+.m-ric .bg{position:absolute;inset:0;border-radius:inherit}
+.m-ric img{position:absolute;display:block;max-width:none}
+.m-ric.coin{border:1px solid rgba(245,197,66,.45)}.m-ric.coin .bg{background:radial-gradient(circle at 50% 58%,rgba(245,197,66,.22),rgba(245,197,66,.06))}.m-ric.coin img{width:100%;height:100%;left:.69%;top:.46%}
+.m-ric.gems{border:1px solid rgba(124,77,255,.5);box-shadow:inset 0 0 18px rgba(124,77,255,.16)}.m-ric.gems .bg{background:radial-gradient(circle at 50% 58%,rgba(124,77,255,.28),rgba(124,77,255,.08))}.m-ric.gems img{width:103.74%;height:103.74%;left:-2.77%;top:-2.17%}
+.mission .m-rt{font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px;color:#ffc53d;white-space:nowrap}
+.mission.m-spin .m-rt{color:#c3a6ff}
+.mission .m-arrow{width:13px;height:13px;display:block;transform:rotate(180deg) scaleY(-1)}
+.mission.m-claim{background:linear-gradient(178.3deg,#2a1758 10.99%,#241350 89.01%);border:1.5px solid rgba(255,197,61,.55);box-shadow:0 0 18px rgba(255,197,61,.1)}
+.mission.m-claim .m-fill{background:linear-gradient(90deg,#ffc53d,#f5a00b)}
+.mission.m-claim .m-pc{color:#ffc53d}
+.m-claim-btn{display:flex;align-items:center;padding:9px 20px;border-radius:11px;background:rgba(255,197,61,.16);border:1px solid #ffc53d;cursor:pointer;font-family:'Fredoka',sans-serif;font-weight:600;font-size:14px;color:#ffc53d}
+.mission.m-verify{background:#180e38;border:1px solid #2b1c56;opacity:.72}
+.mission.m-verify .m-title{font-size:15px}
+.mission.m-verify .m-fill{background:#3ddc97}
+.mission.m-verify .m-pc{color:#3ddc97}
+.m-done{width:30px;height:30px;border-radius:15px;background:rgba(61,220,151,.2);display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;color:#3ddc97}
 .bubble{padding:8px 12px;border-radius:12px;background:var(--fill);border:1px solid var(--line2);font-size:12px;font-weight:600;color:#44444d}
 .capy-badge{width:44px;height:44px;border-radius:12px;background:#FCFCFD;border:1.5px dashed var(--line2);display:grid;place-items:center;font-size:9px;font-weight:600;color:var(--ink3);text-align:center;line-height:1.2}
 
@@ -332,17 +351,28 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
         </div>
       </div>
 
-      <!-- MISSIONS (wireframe) -->
-      <div class="wf pad">
-        <div class="sec-head">
-          <div><div class="t">Missions</div><div class="s">Complete tasks to earn rewards</div></div>
-          <div class="mascot-inline"><div class="bubble">"1 ready — grab it!"</div><div class="capy-badge">CAPY<br>HINT</div></div>
-        </div>
-        <div>
-          <div class="mission"><div class="m-ic"></div><div class="mid"><div class="mt">Play 5 games</div><div class="prog"><div class="track"><i style="width:60%"></i></div><div class="pc">3 / 5</div></div></div><div class="rw">+50 GC</div><div class="chev">›</div></div>
-          <div class="mission"><div class="m-ic"></div><div class="mid"><div class="mt">Spin Lucky Wheel ×5</div><div class="prog"><div class="track"><i style="width:40%"></i></div><div class="pc">2 / 5</div></div></div><div class="rw">+3 Gems</div><div class="chev">›</div></div>
-          <div class="mission ready"><div class="m-ic"></div><div class="mid"><div class="mt">Claim Daily Login Bonus</div><div class="prog"><div class="track"><i style="width:100%"></i></div><div class="pc">1 / 1</div></div></div><div class="rw">+20 GC</div><button class="btn mini" onclick="claimMission(this)">Claim</button></div>
-          <div class="mission"><div class="m-ic"></div><div class="mid"><div class="mt">Verify your account</div><div class="prog"><div class="track"><i style="width:100%"></i></div><div class="pc">Done</div></div></div><div class="rw">+100 GC</div><div class="done">✓</div></div>
+      <!-- MISSIONS (HD — Figma 130:170) -->
+      <div class="missions-hd">
+        <div class="ht"><div class="t">Missions</div><div class="s">Complete tasks to earn rewards</div></div>
+        <div class="m-bubble">1 ready — grab it!</div>
+        <div class="m-capy"><img src="assets/m-capy.png" alt=""></div>
+        <div class="mrows">
+          <div class="mission m-play">
+            <div class="m-l"><div class="m-title">Play 5 games</div><div class="m-prog"><div class="m-track"><div class="m-fill" style="width:100%"></div></div><div class="m-pc">3/5</div></div></div>
+            <div class="m-right"><div class="m-reward"><span class="m-ric coin"><span class="bg"></span><img src="assets/coin-gold.png" alt=""></span><span class="m-rt">+50 GC</span></div><img class="m-arrow" src="assets/arrow.svg" alt=""></div>
+          </div>
+          <div class="mission m-spin">
+            <div class="m-l"><div class="m-title">Spin Lucky Wheel ×5</div><div class="m-prog"><div class="m-track"><div class="m-fill" style="width:69%"></div></div><div class="m-pc">2/5</div></div></div>
+            <div class="m-right"><div class="m-reward"><span class="m-ric gems"><span class="bg"></span><img src="assets/coin-gems.png" alt=""></span><span class="m-rt">+3 Gems</span></div><img class="m-arrow" src="assets/arrow.svg" alt=""></div>
+          </div>
+          <div class="mission m-claim ready">
+            <div class="m-l"><div class="m-title">Claim Daily Login Bonus</div><div class="m-prog" style="gap:10px"><div class="m-track"><div class="m-fill" style="width:100%"></div></div><div class="m-pc">1/1</div></div></div>
+            <div class="m-right"><div class="m-reward"><span class="m-ric coin"><span class="bg"></span><img src="assets/coin-gold.png" alt=""></span><span class="m-rt">+50 GC</span></div><button class="m-claim-btn" onclick="claimMission(this)">Claim</button></div>
+          </div>
+          <div class="mission m-verify">
+            <div class="m-l"><div class="m-title">Verify your account</div><div class="m-prog" style="gap:10px"><div class="m-track"><div class="m-fill" style="width:100%"></div></div><div class="m-pc">Done</div></div></div>
+            <div class="m-right"><div class="m-reward"><span class="m-ric coin"><span class="bg"></span><img src="assets/coin-gold.png" alt=""></span><span class="m-rt">+50 GC</span></div><div class="m-done">✓</div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -404,7 +434,7 @@ function claimDay(btn){
 function claimMission(btn){
   const m=btn.closest('.mission'),gold=document.querySelector('.bal.gold .num');countUp(gold,parseFloat(gold.dataset.count)+20,'int',900);
   const r=btn.getBoundingClientRect();confetti(r.left+r.width/2,r.top);cheerCapy();
-  m.classList.remove('ready');btn.replaceWith(Object.assign(document.createElement('div'),{className:'done',textContent:'✓'}));toast('Mission complete · +20 GC');
+  m.classList.remove('ready');btn.replaceWith(Object.assign(document.createElement('div'),{className:'m-done',textContent:'✓'}));toast('Mission complete · +50 GC');
 }
 let spinning=false;
 function spinWheel(btn){
