@@ -170,10 +170,10 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
 .missions-hd .ht{display:flex;flex-direction:column;gap:3px}
 .missions-hd .ht .t{font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;color:#fff}
 .missions-hd .ht .s{font-family:'Inter',sans-serif;font-weight:400;font-size:13px;color:#b7acd9}
-.m-capy{position:absolute;left:802px;top:-1px;width:124px;height:130px;overflow:hidden;pointer-events:none}
+.m-capy{position:absolute;left:802px;top:-1px;width:124px;height:130px;overflow:hidden;pointer-events:none;z-index:0}   /* behind the rows, like Figma (rows drawn after image 13) */
 .m-capy img{position:absolute;left:-.05%;top:-20.7%;width:100.09%;height:143.28%;max-width:none;display:block}
 .m-bubble{position:absolute;left:693px;top:14px;z-index:2;padding:8px 14px;background:#fff;border-radius:14px 14px 4px 14px;box-shadow:0 8px 18px rgba(0,0,0,.3);font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;color:#160c33;white-space:nowrap}
-.mrows{display:flex;flex-direction:column;gap:12px;width:100%}
+.mrows{position:relative;z-index:1;display:flex;flex-direction:column;gap:12px;width:100%}   /* rows over the capy */
 .mission{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:16px;border-radius:15px;overflow:hidden;width:100%;background:#1c103f;border:1px solid #2b1c56}
 .mission .m-l{flex:0 1 680px;min-width:0;display:flex;flex-direction:column;gap:8px}
 .mission .m-title{font-family:'Fredoka',sans-serif;font-weight:500;font-size:16px;color:#fff;white-space:nowrap}
