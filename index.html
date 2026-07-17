@@ -66,7 +66,9 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
 .xp-cap{display:flex;gap:7px;align-items:center;font-size:15px}
 .xp-cap b{color:#e7e0f6;font-weight:700}
 .xp-cap span{color:#8e82b4}
-.capy{position:absolute;left:1113.5px;top:-1.5px;width:213px;height:222px;overflow:hidden;pointer-events:none;z-index:1} /* 71:535 */
+.capy{position:absolute;left:1113.5px;top:-1.5px;width:213px;height:222px;overflow:hidden;pointer-events:none;z-index:1; /* 71:535 */
+  transform-origin:50% 100%;animation:capyIdle 4.5s ease-in-out infinite}   /* ANIM: idle breathing/sway, anchored at the bottom */
+@keyframes capyIdle{0%,100%{transform:rotate(0deg) scale(1)}50%{transform:rotate(-1.2deg) scale(1.015)}}
 .capy img{position:absolute;left:-101.2%;top:0;width:210.59%;height:117.89%;max-width:none;display:block} /* exact crop from 71:535 */
 .capy.cheer img{animation:capyCheer .7s ease} /* ANIM */
 @keyframes capyCheer{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-3deg) translateY(-8px)}60%{transform:rotate(2deg) translateY(-4px)}}
