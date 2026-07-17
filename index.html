@@ -202,22 +202,26 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
 .bubble{padding:8px 12px;border-radius:12px;background:var(--fill);border:1px solid var(--line2);font-size:12px;font-weight:600;color:#44444d}
 .capy-badge{width:44px;height:44px;border-radius:12px;background:#FCFCFD;border:1.5px dashed var(--line2);display:grid;place-items:center;font-size:9px;font-weight:600;color:var(--ink3);text-align:center;line-height:1.2}
 
-/* ---------- lucky wheel (wireframe) ---------- */
-.wheel-card{position:relative;overflow:hidden;padding:20px 22px;height:272px}
-.wheel-decor{position:absolute;left:50%;bottom:-140px;transform:translateX(-50%);width:210px;height:210px;border-radius:50%;border:1.5px solid var(--line2);background:#FBFBFC;display:grid;place-items:start center;transition:transform 2.6s cubic-bezier(.16,1,.3,1)} /* ANIM: spin */
-.wheel-decor::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:132px;height:132px;border-radius:50%;border:1.5px dashed var(--line2)}
-.wheel-decor .wlbl{margin-top:14px;font-size:10.5px;letter-spacing:.5px;color:var(--ink3);font-weight:600}
-.wheel-content{position:relative;z-index:2;display:flex;flex-direction:column;gap:11px}
-.wheel-top{display:flex;justify-content:space-between;align-items:center}
-.wheel-top .pv{font-size:11px;font-weight:600;letter-spacing:.4px;color:var(--ink3)}
-.spins-line{font-size:12px;color:var(--ink2)}
-.spins-line b{color:var(--ink)}
-.divider{height:1px;background:var(--line);margin-top:2px}
-.fs-strip{display:flex;align-items:center;justify-content:space-between}
-.fs-strip .a{font-family:'Fredoka';font-weight:600;font-size:13px}
-.fs-strip .b{font-size:11px;color:var(--ink2)}
-.fs-timer{padding:7px 10px;border-radius:7px;background:var(--fill);border:1px solid var(--line);font-family:'Fredoka';font-weight:600;font-size:12.5px}
-.capy-invite{position:absolute;left:16px;bottom:14px;z-index:3;display:flex;align-items:center;gap:8px}
+/* ---------- lucky wheel (HD — Figma 149:263, exact) ---------- */
+.wheel-hd{position:relative;overflow:hidden;width:100%;height:388px;border-radius:12px;background:linear-gradient(180deg,#261b4a,#191231);border:1.5px solid #3c2f67}
+.wheel-img{position:absolute;left:50%;top:252.5px;width:337px;height:337px;transform:translateX(-50%);transform-origin:50% 50%;transition:transform 2.6s cubic-bezier(.16,1,.3,1)} /* ANIM: spin */
+.wheel-img img{width:100%;height:100%;display:block;object-fit:cover}
+.wheel-deco{position:absolute;left:-95.5px;top:152.5px;width:305.592px;height:356.633px;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.wheel-deco .rot{transform:rotate(169.98deg) scaleY(-1)}
+.wheel-deco img{width:254.29px;height:317.24px;object-fit:cover;display:block}
+.w-content{position:absolute;left:50%;top:22.5px;width:328px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;gap:10px}
+.w-hd{display:flex;flex-direction:column;gap:4px;width:100%}
+.w-title-row{display:flex;align-items:center;justify-content:space-between;width:100%}
+.w-title{font-family:'Inter',sans-serif;font-weight:600;font-size:20px;color:#fff}
+.w-pv{font-family:'Inter',sans-serif;font-weight:500;font-size:11px;letter-spacing:.4px;color:#b7acd9}
+.w-spins{font-family:'Inter',sans-serif;font-weight:400;font-size:14px;color:#b7acd9}
+.w-spin-btn{display:flex;align-items:center;justify-content:center;width:100%;padding:13px 0;border-radius:8px;background:#1e1550;border:1px solid #7c4dff;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:14.5px;color:#c9bdff}
+.w-divider{width:100%;height:1px;background:rgba(222,222,222,.15)}
+.w-fs{display:flex;align-items:center;justify-content:space-between;width:100%}
+.w-fsl{display:flex;flex-direction:column;gap:2px}
+.w-fs-a{font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:#fff}
+.w-fs-b{font-family:'Inter',sans-serif;font-weight:400;font-size:11px;color:#b7acd9}
+.w-fs-timer{padding:7px 10px;border-radius:7px;background:#2f2063;font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;color:#c9bdff;white-space:nowrap}
 
 /* ---------- redeem (wireframe) ---------- */
 .total-row{display:flex;justify-content:space-between;align-items:center;margin:14px 0}
@@ -377,17 +381,22 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
     </div>
 
     <div class="rail">
-      <!-- LUCKY WHEEL (wireframe) -->
-      <div class="wf wheel-card">
-        <div class="wheel-decor" id="wheel"><span class="wlbl">WHEEL</span></div>
-        <div class="wheel-content">
-          <div class="wheel-top"><div class="t fred" style="font-weight:600;font-size:16px">Lucky Wheel</div><div class="pv">PREVIEW</div></div>
-          <div class="spins-line"><b id="spinsLeft">3</b> spins available today</div>
-          <button class="btn secondary" style="width:100%;justify-content:center" onclick="spinWheel(this)">▶&nbsp; Spin now</button>
-          <div class="divider"></div>
-          <div class="fs-strip"><div><div class="a">Daily Free Spins · 15</div><div class="b">Resets daily</div></div><div class="fs-timer" id="fsTimer">next 03:12:40</div></div>
+      <!-- LUCKY WHEEL (HD — Figma 149:263) -->
+      <div class="wheel-hd">
+        <div class="wheel-deco"><div class="rot"><img src="assets/wheel-deco.png" alt=""></div></div>
+        <div class="wheel-img" id="wheel"><img src="assets/wheel-main.png" alt=""></div>
+        <div class="w-content">
+          <div class="w-hd">
+            <div class="w-title-row"><div class="w-title">Lucky Wheel</div><div class="w-pv">PREVIEW</div></div>
+            <div class="w-spins"><span id="spinsLeft">3</span> spins available today</div>
+          </div>
+          <button class="w-spin-btn" onclick="spinWheel(this)">▶&nbsp; Spin now</button>
+          <div class="w-divider"></div>
+          <div class="w-fs">
+            <div class="w-fsl"><div class="w-fs-a">Daily Free Spins · 15</div><div class="w-fs-b">Resets daily</div></div>
+            <div class="w-fs-timer" id="fsTimer">next 03:12:40</div>
+          </div>
         </div>
-        <div class="capy-invite"><div class="capy-badge">CAPY<br>INVITE</div><div class="bubble" id="inviteBubble">"Spin to win!"</div></div>
       </div>
 
       <!-- REDEEM (wireframe) -->
@@ -440,8 +449,8 @@ function spinWheel(btn){
   const left=document.getElementById('spinsLeft');let n=parseInt(left.textContent);
   if(spinning||n<=0){if(n<=0)toast('No spins left today');return;}
   spinning=true;const w=document.getElementById('wheel');const turns=(w._deg||0)+360*4+Math.floor(Math.random()*360);w._deg=turns;
-  w.style.transform=`translateX(-50%) rotate(${turns}deg)`;document.getElementById('inviteBubble').textContent='"Wheee!"';left.textContent=String(n-1);
-  setTimeout(()=>{spinning=false;cheerCapy();document.getElementById('inviteBubble').textContent='"Nice one!"';
+  w.style.transform=`translateX(-50%) rotate(${turns}deg)`;left.textContent=String(n-1);
+  setTimeout(()=>{spinning=false;cheerCapy();
     const prize=['+120 GC','+2 Gems','+0.50 SC','+15 Free Spins'][Math.floor(Math.random()*4)];toast('You won '+prize+'!');},2600);
 }
 (function(){let s=3*3600+12*60+40;const el=document.getElementById('fsTimer');
