@@ -25,6 +25,7 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--
 .app{max-width:1760px;margin:0 auto;padding:0 40px}  /* widened; profile stretches, capy re-anchored right */
 .fred{font-family:'Fredoka',sans-serif}
 h1,h2,h3,p{margin:0}
+.m-only{display:none}   /* mobile-only helpers, revealed in @media ≤760 */
 
 /* ---------- top bar (HD — Figma 60:280) ---------- */
 .topbar{width:100%;background:#261b4a;margin-bottom:40px}
@@ -275,41 +276,87 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
   .tb-inner{padding:18px 16px}
   .logo{width:150px;height:53px}
   .topbar{margin-bottom:24px}
-  /* profile → stacked flow (drop the absolute desktop layout) */
-  .profile{height:auto;padding:22px;margin-bottom:24px}
-  .p-row{position:static;transform:none;height:auto;flex-wrap:wrap;gap:16px}
-  .p-center{flex:1 1 100%;min-width:0;gap:16px}
-  .name-row{gap:12px}.name-row .nm{font-size:26px}
-  .lvl-labels{font-size:16px}
-  .xp-cap{flex-wrap:wrap}
+
+  /* unwrap grid → single column, reorder so the wheel sits above missions */
+  .grid{display:flex;flex-direction:column;gap:24px}
+  .main,.rail{display:contents}
+  .balances{order:1}.daily-hd{order:2}.wheel-hd{order:3}.missions-hd{order:4}.redeem-hd{order:5}
+  .rail>*{flex:0 0 auto;min-width:0}   /* override tablet .rail>*{flex:1} so the wheel keeps its 388px height */
+
+  /* PROFILE compact — grid: [avatar | name+VIP | reserved capy col], bar full width */
+  .profile{height:auto;padding:20px 18px;margin-bottom:24px}
+  .p-row{position:static;transform:none;height:auto;display:grid;grid-template-columns:auto 1fr 46px;column-gap:10px;row-gap:10px;align-items:center}
+  .avatar-block,.avatar-circle{width:64px;height:64px}
+  .avatar-circle{border-width:3px}
+  .avatar-person{width:50px;height:64px;left:4px;top:9px}
+  .avatar-block{grid-column:1;grid-row:1 / span 2}
+  .chip.vip{display:none}
+  .p-center{display:contents}
+  .name-row{grid-column:2;grid-row:1;gap:8px;flex-wrap:wrap;min-width:0}
+  .name-row .nm{font-size:20px}
+  .chip.verified{padding:4px 9px;font-size:12px}.chip.verified img{width:12px;height:12px}
+  .vip-m{display:flex;align-items:center;gap:5px;grid-column:2;grid-row:2;font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;color:#f5c542}
+  .vip-m img{width:14px;height:14px}
+  .pcapy-m{display:block;position:absolute;top:18px;right:16px;width:46px;height:46px;border-radius:50%;overflow:hidden;background:#241350;border:1.5px solid #f8cd53;z-index:2}
+  .pcapy-m img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}
+  .progress{grid-column:1 / -1;grid-row:3;display:flex;flex-direction:column;gap:10px}
+  .lvl-labels{font-size:14px;justify-content:space-between}
+  .xp-mid{display:inline;color:#b7acd9;font-weight:500}
+  .xp-cap{display:none}
   .capy,.xp-bubble,.top-glow{display:none}
-  /* balances → column */
-  .balances{flex-direction:column;gap:16px}.bal{flex:0 0 auto}
-  /* rail → column, full-width blocks (flex:0 0 auto so wheel keeps its 388px height) */
-  .rail{flex-direction:column}.rail>*{flex:0 0 auto;min-width:0}
-  .w-content{left:20px;right:20px;width:auto;transform:none}
-  /* daily streak → horizontal swipe strip */
-  .days{flex-wrap:nowrap;overflow-x:auto;gap:10px;padding-bottom:6px;scrollbar-width:thin}
-  .day{flex:0 0 92px}
-  .days::-webkit-scrollbar{height:5px}.days::-webkit-scrollbar-thumb{background:#3a2a6b;border-radius:9px}
+
+  /* BALANCES — Sweep featured (full width) + Gold/Gems 2-up mini */
+  .balances{display:flex;flex-direction:row;flex-wrap:wrap;gap:12px}
+  .bal{flex:0 0 auto;padding:18px 20px}
+  .bal.sweep{order:-1;flex:1 1 100%}
+  .bal.sweep .cur,.bal.sweep .badge,.bal.sweep .sub{display:none}
+  .sw-rp{display:inline;font-weight:400;font-size:13px;color:#b7acd9}
+  .bal.sweep .title{font-size:15px}
+  .bal.sweep .amt-group{flex-direction:row;align-items:center;justify-content:space-between;gap:12px}
+  .bal.sweep .num{font-size:34px}
+  .bal.sweep .link{white-space:nowrap}
+  .bal.gold,.bal.gems{flex:1 1 calc(50% - 6px);gap:6px;padding:16px}
+  .bal.gold .cur,.bal.gems .cur,.bal.gold .sub,.bal.gems .sub,.bal.gold .link,.bal.gems .link{display:none}
+  .bal.gold .title,.bal.gems .title{font-size:14px}
+  .bal.gold .num,.bal.gems .num{font-size:26px}
+  .bal.gold .amt-group,.bal.gems .amt-group{gap:0}
+
+  /* DAILY — abbreviated pills */
   .daily-hd .hdr{gap:10px}.daily-hd .ht{min-width:0}.streak{flex:0 0 auto}
-  /* missions */
+  .days{display:flex;flex-wrap:wrap;overflow:visible;gap:8px;padding-bottom:0}
+  .day{flex:0 0 auto;padding:0;gap:0;border-radius:12px}
+  .days .day .g,.days .day .st{display:none}
+  .daymini{display:block;padding:9px 13px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;white-space:nowrap;color:#9f95c9}
+  .day.today{border-radius:14px}.day.today .daymini{color:#ffc53d}
+  .day.locked .daymini{color:#7b6fa6}
+  .day.bonus .daymini{color:#b79cff}
+  .claim-row{flex-wrap:wrap;gap:10px}
+
+  /* WHEEL — keep the big animated card, just reposition its content */
+  .w-content{left:20px;right:20px;width:auto;transform:none}
+
+  /* MISSIONS — ready-first + '1 ready' badge */
   .missions-hd{padding:20px}
-  .mission{gap:14px;padding:14px}
-  .mission .m-l{flex:1 1 auto}
+  .mready{display:block;position:absolute;top:22px;right:20px;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;color:#3ddc97}
+  .mission.m-claim.ready{order:-1}
+  .mission{gap:12px;padding:14px}
+  .mission .m-l{flex:1 1 auto;min-width:0}
   .mission .m-title{white-space:normal}
   .mission .m-right{gap:10px}
-  .claim-row{flex-wrap:wrap;gap:10px}
 }
 @media (max-width:430px){
   .tb-inner{padding:16px 14px}
   .logo{width:132px;height:47px}
   .avatar-pill span{display:none}
-  .name-row .nm{font-size:22px}
-  .lvl-labels{font-size:15px}
-  .bal .num{font-size:32px}
+  .name-row .nm{font-size:19px}
+  .lvl-labels{font-size:13px}
+  .bal.sweep .num{font-size:30px}
+  .bal.gold .num,.bal.gems .num{font-size:24px}
+  .daymini{padding:8px 11px;font-size:12px}
   .mission .m-rt{font-size:14px}
-  .daily-hd{padding:18px}
+  .daily-hd{padding:16px}
+  .p-row{grid-template-columns:auto 1fr 42px;column-gap:9px}
+  .pcapy-m{width:42px;height:42px;right:14px}
 }
 /* ================= POLISH · micro-animations & hover ================= */
 /* staggered entrance (JS strips .reveal after settle → frees transform for hover) */
@@ -415,8 +462,9 @@ body.loaded .reveal{opacity:1;transform:none;transition:opacity .6s ease,transfo
           <h1 class="nm">BigWinNick</h1>
           <span class="chip verified">Verified<img src="assets/check.svg" alt=""></span>
         </div>
+        <div class="m-only vip-m"><img src="assets/coin.svg" alt="">VIP Gold</div>
         <div class="progress">
-          <div class="lvl-labels"><span>Level 7</span><span class="l8">Level 8</span></div>
+          <div class="lvl-labels"><span>Level 7</span><span class="m-only xp-mid">3,250 / 5,000 XP</span><span class="l8">Level 8</span></div>
           <div class="bar-group">
             <div class="bar"><div class="fill"></div><div class="knob"><img src="assets/knob.svg" alt=""></div></div>
             <div class="xp-cap"><b>3,250 / 5,000 XP</b><span>· 1,750 to next level</span></div>
@@ -426,6 +474,7 @@ body.loaded .reveal{opacity:1;transform:none;transition:opacity .6s ease,transfo
     </div>
     <div class="capy" id="capy"><img id="capyImg" src="assets/capy-rest.png" alt="Capy mascot"></div>
     <div class="xp-bubble" id="xpBubble">“1,750 XP to go!”</div>
+    <div class="m-only pcapy-m"><img src="assets/capy-rest.png" alt="Capy"></div>
   </section>
 
   <!-- GRID -->
@@ -451,7 +500,7 @@ body.loaded .reveal{opacity:1;transform:none;transition:opacity .6s ease,transfo
           <div class="badge">Real prizes</div>
           <div class="hdr">
             <div class="cur"><img src="assets/coin-sweep.png" alt=""></div>
-            <div class="title">Sweep Coins</div>
+            <div class="title">Sweep Coins<span class="m-only sw-rp"> · real prizes</span></div>
           </div>
           <div class="amt-group">
             <div class="amt-sub">
@@ -483,13 +532,13 @@ body.loaded .reveal{opacity:1;transform:none;transition:opacity .6s ease,transfo
           <div class="streak"><img src="assets/flame.svg" alt=""><span>Streak: 3 days</span></div>
         </div>
         <div class="days">
-          <div class="day claimed"><div class="g"><div class="dlabel">Day 1</div><div class="dic coin"><div class="bg"></div><img src="assets/coin-gold.png" alt=""></div><div class="drew">50 GC</div></div><div class="st">✓ Claimed</div></div>
-          <div class="day claimed"><div class="g"><div class="dlabel">Day 2</div><div class="dic coin"><div class="bg"></div><img src="assets/coin-gold.png" alt=""></div><div class="drew">60 GC</div></div><div class="st">✓ Claimed</div></div>
-          <div class="day today" id="day3"><div class="g"><div class="dlabel">Day 3</div><div class="dic coin"><div class="bg"></div><img src="assets/coin-gold.png" alt=""></div><div class="drew">80 GC</div></div><div class="st">● TODAY</div></div>
-          <div class="day locked"><div class="g"><div class="dlabel">Day 4</div><div class="dic coin"><div class="bg"></div><img src="assets/coin-gold.png" alt=""></div><div class="drew">100 GC</div></div><div class="st"><img src="assets/lock.svg" alt="">Locked</div></div>
-          <div class="day locked"><div class="g"><div class="dlabel">Day 5</div><div class="dic gems"><div class="bg"></div><img src="assets/coin-gems.png" alt=""></div><div class="drew">3 Gems</div></div><div class="st"><img src="assets/lock.svg" alt="">Locked</div></div>
-          <div class="day locked"><div class="g"><div class="dlabel">Day 6</div><div class="dic coin"><div class="bg"></div><img src="assets/coin-gold.png" alt=""></div><div class="drew">150 GC</div></div><div class="st"><img src="assets/lock.svg" alt="">Locked</div></div>
-          <div class="day bonus"><div class="g"><div class="dlabel">Day 7</div><div class="dic sweep"><div class="bg"></div><img src="assets/coin-sweep.png" alt=""></div><div class="drew">1 SC</div></div><div class="st">BONUS</div></div>
+          <div class="day claimed"><div class="g"><div class="dlabel">Day 1</div><div class="dic coin"><div class="bg"></div><img src="assets/coin-gold.png" alt=""></div><div class="drew">50 GC</div></div><div class="st">✓ Claimed</div><span class="m-only daymini">D1 ✓</span></div>
+          <div class="day claimed"><div class="g"><div class="dlabel">Day 2</div><div class="dic coin"><div class="bg"></div><img src="assets/coin-gold.png" alt=""></div><div class="drew">60 GC</div></div><div class="st">✓ Claimed</div><span class="m-only daymini">D2 ✓</span></div>
+          <div class="day today" id="day3"><div class="g"><div class="dlabel">Day 3</div><div class="dic coin"><div class="bg"></div><img src="assets/coin-gold.png" alt=""></div><div class="drew">80 GC</div></div><div class="st">● TODAY</div><span class="m-only daymini">D3 · 80</span></div>
+          <div class="day locked"><div class="g"><div class="dlabel">Day 4</div><div class="dic coin"><div class="bg"></div><img src="assets/coin-gold.png" alt=""></div><div class="drew">100 GC</div></div><div class="st"><img src="assets/lock.svg" alt="">Locked</div><span class="m-only daymini">D4 🔒</span></div>
+          <div class="day locked"><div class="g"><div class="dlabel">Day 5</div><div class="dic gems"><div class="bg"></div><img src="assets/coin-gems.png" alt=""></div><div class="drew">3 Gems</div></div><div class="st"><img src="assets/lock.svg" alt="">Locked</div><span class="m-only daymini">D5 🔒</span></div>
+          <div class="day locked"><div class="g"><div class="dlabel">Day 6</div><div class="dic coin"><div class="bg"></div><img src="assets/coin-gold.png" alt=""></div><div class="drew">150 GC</div></div><div class="st"><img src="assets/lock.svg" alt="">Locked</div><span class="m-only daymini">D6 🔒</span></div>
+          <div class="day bonus"><div class="g"><div class="dlabel">Day 7</div><div class="dic sweep"><div class="bg"></div><img src="assets/coin-sweep.png" alt=""></div><div class="drew">1 SC</div></div><div class="st">BONUS</div><span class="m-only daymini">D7 ★</span></div>
         </div>
         <div class="claim-row">
           <button class="claim-btn" id="claimDay" onclick="claimDay(this)">Claim Day 3</button>
@@ -499,6 +548,7 @@ body.loaded .reveal{opacity:1;transform:none;transition:opacity .6s ease,transfo
 
       <!-- MISSIONS (HD — Figma 130:170) -->
       <div class="missions-hd reveal" style="--rd:.42s">
+        <span class="m-only mready">1 ready</span>
         <div class="ht"><div class="t">Missions</div><div class="s">Complete tasks to earn rewards</div></div>
         <div class="mrows">
           <div class="mission m-play">
