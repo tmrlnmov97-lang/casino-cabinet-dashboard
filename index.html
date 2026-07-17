@@ -327,6 +327,16 @@ body.loaded .reveal{opacity:1;transform:none;transition:opacity .6s ease,transfo
 .bal.sweep .badge{animation:badgeGlow 2.8s ease-in-out infinite}
 @keyframes badgeGlow{0%,100%{box-shadow:0 6px 16px rgba(0,0,0,.4)}50%{box-shadow:0 6px 16px rgba(0,0,0,.4),0 0 16px rgba(245,197,66,.42)}}
 
+/* ---- claim / collect feedback ---- */
+.reward-fly{position:fixed;z-index:9999;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:20px;text-shadow:0 2px 12px rgba(0,0,0,.5);pointer-events:none;will-change:transform,opacity}
+@keyframes numPulse{0%{transform:scale(1)}30%{transform:scale(1.16)}100%{transform:scale(1)}}
+.num.bump{animation:numPulse .55s ease}
+@keyframes donePop{0%{transform:scale(0) rotate(-40deg);opacity:0}55%{transform:scale(1.28) rotate(10deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+.m-done{animation:donePop .5s cubic-bezier(.34,1.56,.64,1)}
+.mission.done{opacity:.82}
+.claim-btn.claimed{background:linear-gradient(180deg,#3ddc97,#1f9d6b)!important;box-shadow:0 0 26px rgba(61,220,151,.5)!important;color:#052015;animation:claimedPop .5s cubic-bezier(.34,1.56,.64,1)!important}
+@keyframes claimedPop{0%{transform:scale(1)}35%{transform:scale(1.07)}100%{transform:scale(1)}}
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1!important;transform:none!important}}
 </style>
 </head>
@@ -519,16 +529,39 @@ function confetti(x,y){                                             /* ANIM: con
   }
 }
 function cheerCapy(){const c=document.getElementById('capy');c.classList.remove('cheer');void c.offsetWidth;c.classList.add('cheer');}
+function bump(el){if(!el)return;el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');}
+function parseReward(t){const m=(t||'').match(/([\d.]+)/);return m?parseFloat(m[1]):0;}
+function flyReward(fromR,toR,text,color){                              /* ANIM: reward flies into the balance */
+  if(reduce)return;
+  const el=document.createElement('div');el.className='reward-fly';el.textContent=text;el.style.color=color||'#ffc53d';
+  const x0=fromR.left+fromR.width/2,y0=fromR.top+fromR.height/2,x1=toR.left+toR.width/2,y1=toR.top+toR.height/2;
+  el.style.left=x0+'px';el.style.top=y0+'px';document.body.appendChild(el);
+  el.animate([
+    {transform:'translate(-50%,-50%) scale(.9)',opacity:0,offset:0},
+    {transform:'translate(-50%,-50%) translateY(-24px) scale(1.25)',opacity:1,offset:.18},
+    {transform:`translate(-50%,-50%) translate(${x1-x0}px,${y1-y0}px) scale(.5)`,opacity:0,offset:1}
+  ],{duration:850,easing:'cubic-bezier(.5,0,.25,1)'}).onfinish=()=>el.remove();
+}
 function claimDay(btn){
   if(btn.disabled)return;
-  const gold=document.querySelector('.bal.gold .num');countUp(gold,parseFloat(gold.dataset.count)+80,'int',1000);
-  const day=document.getElementById('day3');day.classList.remove('today');day.classList.add('claimed');day.querySelector('.st').textContent='✓ Claimed';
-  const r=btn.getBoundingClientRect();confetti(r.left+r.width/2,r.top);cheerCapy();btn.textContent='Claimed ✓';btn.disabled=true;toast('+80 Gold Coins claimed!');
+  const goldNum=document.querySelector('.bal.gold .num'),day=document.getElementById('day3'),rew=day.querySelector('.drew');
+  const r=btn.getBoundingClientRect();confetti(r.left+r.width/2,r.top);cheerCapy();
+  if(rew)flyReward(rew.getBoundingClientRect(),goldNum.getBoundingClientRect(),'+'+rew.textContent.trim(),'#ffc53d');
+  day.classList.remove('today');day.classList.add('claimed');day.querySelector('.st').textContent='✓ Claimed';
+  btn.textContent='Claimed ✓';btn.classList.add('claimed');btn.disabled=true;
+  const add=parseReward(rew&&rew.textContent)||80;
+  setTimeout(()=>{const to=parseFloat(goldNum.dataset.count)+add;countUp(goldNum,to,'int',800);goldNum.dataset.count=to;bump(goldNum);},600);
+  toast('+'+add+' Gold Coins claimed!');
 }
 function claimMission(btn){
-  const m=btn.closest('.mission'),gold=document.querySelector('.bal.gold .num');countUp(gold,parseFloat(gold.dataset.count)+20,'int',900);
+  const m=btn.closest('.mission'),goldNum=document.querySelector('.bal.gold .num'),rt=m.querySelector('.m-rt');
   const r=btn.getBoundingClientRect();confetti(r.left+r.width/2,r.top);cheerCapy();
-  m.classList.remove('ready');btn.replaceWith(Object.assign(document.createElement('div'),{className:'m-done',textContent:'✓'}));toast('Mission complete · +50 GC');
+  if(rt)flyReward(rt.getBoundingClientRect(),goldNum.getBoundingClientRect(),rt.textContent.trim(),'#ffc53d');
+  m.classList.remove('ready');m.classList.add('done');
+  btn.replaceWith(Object.assign(document.createElement('div'),{className:'m-done',textContent:'✓'}));
+  const add=parseReward(rt&&rt.textContent)||50;
+  setTimeout(()=>{const to=parseFloat(goldNum.dataset.count)+add;countUp(goldNum,to,'int',700);goldNum.dataset.count=to;bump(goldNum);},600);
+  toast('Mission complete · '+(rt?rt.textContent.trim():'+50 GC'));
 }
 let spinning=false;
 function spinWheel(btn){
