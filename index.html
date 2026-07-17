@@ -66,9 +66,8 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
 .xp-cap{display:flex;gap:7px;align-items:center;font-size:15px}
 .xp-cap b{color:#e7e0f6;font-weight:700}
 .xp-cap span{color:#8e82b4}
-.capy{position:absolute;left:1113.5px;top:-1.5px;width:213px;height:222px;overflow:hidden;pointer-events:none;z-index:1; /* 71:535 */
-  mix-blend-mode:lighten}          /* clip's black bg melts into the dark card — no per-frame keying, no flicker */
-.capy img{position:absolute;left:-1px;top:0;height:262px;width:auto;max-width:none;display:block}  /* character at the Figma capy scale */
+.capy{position:absolute;left:1113.5px;top:-1.5px;width:213px;height:222px;overflow:hidden;pointer-events:none;z-index:1} /* 71:535 */
+.capy img{position:absolute;left:-1px;top:0;height:262px;width:auto;max-width:none;display:block;filter:drop-shadow(0 10px 22px rgba(0,0,0,.4))} /* true alpha — no blend, real colors */
 .capy.cheer img{animation:capyCheer .7s ease} /* ANIM */
 @keyframes capyCheer{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-3deg) translateY(-8px)}60%{transform:rotate(2deg) translateY(-4px)}}
 
