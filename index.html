@@ -207,7 +207,8 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
 .wheel-img{position:absolute;left:50%;top:252.5px;width:337px;height:337px;transform:translateX(-50%);transform-origin:50% 50%}
 .wheel-img img{width:100%;height:100%;display:block;object-fit:cover;transform-origin:50% 50%;animation:wheelSpin 40s linear infinite} /* ANIM: slow smooth continuous spin */
 @keyframes wheelSpin{to{transform:rotate(360deg)}}
-.wheel-deco{position:absolute;left:-95.5px;top:152.5px;width:305.592px;height:356.633px;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.wheel-deco{position:absolute;left:-95.5px;top:152.5px;width:305.592px;height:356.633px;display:flex;align-items:center;justify-content:center;pointer-events:none;transform-origin:62% 88%;animation:croupierIdle 4.6s ease-in-out infinite} /* ANIM: idle sway */
+@keyframes croupierIdle{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-4px) rotate(-1.4deg)}}
 .wheel-deco .rot{transform:rotate(169.98deg) scaleY(-1)}
 .wheel-deco img{width:254.29px;height:317.24px;object-fit:cover;display:block}
 .w-content{position:absolute;left:50%;top:22.5px;width:328px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;gap:10px}
