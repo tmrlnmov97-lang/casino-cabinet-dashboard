@@ -68,9 +68,9 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
 .xp-cap span{color:#8e82b4}
 .capy{position:absolute;left:1113.5px;top:-1.5px;width:213px;height:222px;overflow:hidden;pointer-events:none;z-index:1} /* 71:535 */
 .capy img{position:absolute;left:-1px;top:0;height:262px;width:auto;max-width:none;display:block;filter:drop-shadow(0 10px 22px rgba(0,0,0,.4))} /* true alpha — no blend, real colors */
-.xp-bubble{position:absolute;top:16px;right:250px;z-index:4;padding:11px 20px;background:#fff;border-radius:24px;box-shadow:0 12px 28px rgba(0,0,0,.4);font-family:'Fredoka',sans-serif;font-weight:600;font-size:19px;color:#160c33;white-space:nowrap;opacity:0;transform:translateY(8px) scale(.9);transform-origin:70% 130%;transition:opacity .25s ease, transform .32s cubic-bezier(.2,1.5,.4,1);pointer-events:none} /* ANIM: shows when capy points */
+.xp-bubble{position:absolute;top:14px;right:196px;z-index:4;padding:11px 20px;background:#fff;border-radius:24px;box-shadow:0 12px 28px rgba(0,0,0,.4);font-family:'Fredoka',sans-serif;font-weight:600;font-size:19px;color:#160c33;white-space:nowrap;opacity:0;transform:translateY(8px) scale(.9);transform-origin:88% 120%;transition:opacity .25s ease, transform .32s cubic-bezier(.2,1.5,.4,1);pointer-events:none} /* ANIM: shows when capy points */
 .xp-bubble.show{opacity:1;transform:translateY(0) scale(1)}
-.xp-bubble::after{content:"";position:absolute;right:34px;bottom:-6px;width:16px;height:16px;background:#fff;border-radius:0 0 5px 0;transform:rotate(45deg)}
+.xp-bubble::after{content:"";position:absolute;right:16px;bottom:-7px;width:20px;height:20px;background:#fff;border-radius:0 0 6px 0;transform:rotate(45deg)} /* tail points down-right, toward the capy */
 .capy.cheer img{animation:capyCheer .7s ease} /* ANIM */
 @keyframes capyCheer{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-3deg) translateY(-8px)}60%{transform:rotate(2deg) translateY(-4px)}}
 
