@@ -21,19 +21,21 @@
   --radius:12px; --xp:65%;        /* /* ANIM: level progress */
 }
 *{box-sizing:border-box} html,body{margin:0}
-body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh;padding:22px 0 60px}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh;padding:0 0 60px}
 .app{max-width:1760px;margin:0 auto;padding:0 40px}  /* widened; profile stretches, capy re-anchored right */
 .fred{font-family:'Fredoka',sans-serif}
 h1,h2,h3,p{margin:0}
 
-/* ---------- top bar (wireframe) ---------- */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:4px 0 22px}
-.wf-logo{width:150px;height:40px;border-radius:8px;background:var(--fill);border:1.5px solid var(--line2);display:grid;place-items:center;font-size:13px;font-weight:500;color:var(--ink3);letter-spacing:1px}
-.top-right{display:flex;align-items:center;gap:12px}
-.wf-circle{width:40px;height:40px;border-radius:50%;background:var(--fill);border:1.5px solid var(--line2)}
-.wf-pill{display:flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:999px;background:var(--fill);border:1.5px solid var(--line2)}
-.wf-pill .av{width:30px;height:30px;border-radius:50%;background:var(--fill2);border:1.5px solid var(--line2)}
-.wf-pill span{font-weight:500;font-size:13px;color:var(--ink)}
+/* ---------- top bar (HD — Figma 60:280) ---------- */
+.topbar{width:100%;background:#261b4a;margin-bottom:22px}
+.tb-inner{max-width:1760px;margin:0 auto;padding:26px 40px 18px;display:flex;align-items:center;justify-content:space-between}
+.logo{position:relative;width:201px;height:71px;overflow:hidden;flex:0 0 auto}
+.logo img{position:absolute;left:0;top:-61.12%;width:100%;height:224.85%;max-width:none;display:block}   /* Figma crop 167:328 */
+.tb-right{display:flex;align-items:center;gap:12px}
+.notif{width:40px;height:40px;border-radius:20px;background:#392270;border:1.5px solid #3a2a6b;padding:0;cursor:pointer}
+.avatar-pill{display:flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:999px;background:#241350;border:1.5px solid #3a2a6b;cursor:pointer}
+.avatar-pill img{width:30px;height:30px;border-radius:50%;display:block;object-fit:cover}
+.avatar-pill span{font-family:'Inter',sans-serif;font-weight:500;font-size:13px;color:#fff;white-space:nowrap}
 
 /* ---------- PROFILE (colored HD — Figma 71:506) ---------- */
 .profile{position:relative;overflow:hidden;width:100%;height:201px;margin-bottom:22px;   /* 71:506 = 1360x201 */
@@ -316,8 +318,8 @@ body.loaded .reveal{opacity:1;transform:none;transition:opacity .6s ease,transfo
 .bal.sweep .link:hover{color:#4be0a4}
 
 /* topbar */
-.wf-pill,.wf-circle{transition:filter .2s ease,transform .2s ease;cursor:pointer}
-.wf-pill:hover,.wf-circle:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.notif,.avatar-pill{transition:filter .2s ease,transform .2s ease,border-color .2s ease}
+.notif:hover,.avatar-pill:hover{filter:brightness(1.15);border-color:#5a4794;transform:translateY(-1px)}
 
 /* ambient micro-motion */
 .streak img{transform-origin:50% 80%;animation:flicker 2.2s ease-in-out infinite}
@@ -329,16 +331,17 @@ body.loaded .reveal{opacity:1;transform:none;transition:opacity .6s ease,transfo
 </style>
 </head>
 <body>
-<div class="app">
-
-  <!-- TOP BAR (wireframe) -->
-  <div class="topbar reveal" style="--rd:0s">
-    <div class="wf-logo">LOGO</div>
-    <div class="top-right">
-      <div class="wf-circle"></div>
-      <div class="wf-pill"><div class="av"></div><span>Username ▾</span></div>
+<!-- TOP BAR (HD — Figma 60:280) -->
+<header class="topbar reveal" style="--rd:0s">
+  <div class="tb-inner">
+    <div class="logo"><img src="assets/logo-capygold.png" alt="CapyGold"></div>
+    <div class="tb-right">
+      <button class="notif" aria-label="Notifications"></button>
+      <button class="avatar-pill"><img src="assets/avatar-capy.png" alt=""><span>Username ▾</span></button>
     </div>
   </div>
+</header>
+<div class="app">
 
   <!-- PROFILE (colored HD) -->
   <section class="profile reveal" style="--rd:.05s">
