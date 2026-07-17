@@ -6,7 +6,7 @@
 <title>Casino Cabinet — Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    Frame 60:279 - colored HD profile (exact Figma tokens) + grayscale wireframe body.
@@ -80,18 +80,29 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
 /* ---------- wireframe card ---------- */
 .wf{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
 
-/* ---------- balances (wireframe) ---------- */
-.balances{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.bal{padding:18px 20px}
-.bal .top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.bal .cur{width:44px;height:44px;border-radius:50%;background:var(--fill);border:1.5px solid var(--line2);display:grid;place-items:center;font-family:'Fredoka';font-weight:600;font-size:18px;color:var(--ink2)}
-.bal.gems .cur{border-radius:8px}
-.bal .lab{font-family:'Fredoka';font-weight:600;font-size:14.5px}
-.bal .amt{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.bal .amt .num{font-family:'Fredoka';font-weight:700;font-size:28px}
-.bal .tag{font-weight:600;font-size:11px;padding:3px 8px;border-radius:6px;background:var(--fill);border:1px solid var(--line);color:var(--ink2);letter-spacing:.3px}
-.bal .sub{font-size:12.5px;color:var(--ink2);margin-bottom:8px}
-.bal .link{font-weight:600;font-size:13px;cursor:pointer;background:none;border:0;padding:0;font-family:'Inter';color:#55555f}
+/* ---------- balances (HD — Figma 108:64, exact) ---------- */
+.balances{display:flex;gap:18px;align-items:stretch}
+.bal{flex:1 0 0;min-width:0;display:flex;flex-direction:column;gap:20px;padding:28px;border-radius:22px;
+  background:linear-gradient(180deg,#261b4a,#191231);border:1px solid #3c2f67;overflow:hidden;box-shadow:0 24px 54px rgba(0,0,0,.5)}
+.bal.sweep{position:relative;overflow:visible;border:1.5px solid rgba(245,197,66,.85);box-shadow:0 24px 54px rgba(0,0,0,.55),0 0 34px rgba(245,197,66,.22)}
+.bal .hdr{display:flex;gap:8px;align-items:center}
+.bal .cur{position:relative;width:46px;height:46px;border-radius:23px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 18px rgba(245,197,66,.14)}
+.bal.gold .cur{border:1px solid rgba(245,197,66,.45);background:radial-gradient(circle at 50% 58%,rgba(245,197,66,.22),rgba(245,197,66,.06))}
+.bal.sweep .cur{border:1px solid rgba(46,204,143,.5);background:radial-gradient(circle at 50% 58%,rgba(46,204,143,.24),rgba(46,204,143,.06))}
+.bal.gems .cur{border:1px solid rgba(124,77,255,.5);background:radial-gradient(circle at 50% 58%,rgba(124,77,255,.28),rgba(124,77,255,.08));box-shadow:inset 0 0 18px rgba(124,77,255,.16)}
+.bal .cur svg{display:block}
+.bal .title{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:19px;color:#f3eeff}
+.bal .amt-group{display:flex;flex-direction:column;gap:20px;width:100%}
+.bal .amt-sub{display:flex;flex-direction:column;gap:4px}
+.bal .amt{display:flex;gap:4px;align-items:baseline}
+.bal.gems .amt{gap:8px}
+.bal .num{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:38px;line-height:1;color:#f3eeff}
+.bal.gold .num{color:#ffe3a0;letter-spacing:.38px}
+.bal .unit{font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:#9c8ed1}
+.bal .sub{font-family:'Inter',sans-serif;font-weight:400;font-size:14px;color:#b7acd9}
+.bal.sweep .sub{color:#2ecc8f}
+.bal .link{font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:#9b7bff;cursor:pointer}
+.bal .badge{position:absolute;left:22.5px;top:-13.5px;display:flex;align-items:center;padding:5px 14px;border-radius:999px;background:linear-gradient(180deg,#221733,#191026);border:1px solid rgba(245,197,66,.85);box-shadow:0 6px 16px rgba(0,0,0,.4);font-family:'Baloo 2',sans-serif;font-weight:700;font-size:12px;letter-spacing:.24px;color:#f5c542;white-space:nowrap}
 
 /* ---------- section header ---------- */
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
@@ -229,22 +240,47 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
   <div class="grid">
     <div class="main">
 
-      <!-- BALANCES (wireframe) -->
+      <!-- BALANCES (HD — Figma 108:64) -->
       <div class="balances">
-        <div class="wf bal gold">
-          <div class="top"><div class="cur">★</div><div class="lab">Gold Coins</div></div>
-          <div class="amt"><span class="num" data-count="12450" data-fmt="int">0</span><span class="tag">GC</span></div>
-          <div class="sub">Play for fun</div><button class="link">＋ Get more</button>
+        <div class="bal gold">
+          <div class="hdr">
+            <div class="cur"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#F5C542" stroke-width="1.6"/><path d="M12 7.2c-1.5 0-2.6.8-2.6 2s1 1.7 2.6 2.1c1.6.4 2.6.9 2.6 2.1s-1.1 2-2.6 2m0-8.3c1.3 0 2.3.6 2.5 1.6M12 7.2V6m0 9.5c-1.3 0-2.3-.6-2.5-1.6M12 15.5v1.2" stroke="#F5C542" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div class="title">Gold Coins</div>
+          </div>
+          <div class="amt-group">
+            <div class="amt-sub">
+              <div class="amt"><span class="num" data-count="12450" data-fmt="int">0</span><span class="unit">GC</span></div>
+              <div class="sub">≈ 250 spins</div>
+            </div>
+            <div class="link">+ Get more</div>
+          </div>
         </div>
-        <div class="wf bal sweep">
-          <div class="top"><div class="cur">$</div><div class="lab">Sweep Coins</div></div>
-          <div class="amt"><span class="num" data-count="38.20" data-fmt="dec">0.00</span><span class="tag">SC</span></div>
-          <div class="sub">Redeemable cash</div><button class="link">Redeem →</button>
+        <div class="bal sweep">
+          <div class="badge">Real prizes</div>
+          <div class="hdr">
+            <div class="cur"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><rect x="3" y="6.5" width="14" height="11" rx="2.4" stroke="#2ECC8F" stroke-width="1.6"/><path d="M7 6.5V5.4A1.4 1.4 0 0 1 8.4 4h9.2A1.4 1.4 0 0 1 19 5.4v8.2a1.4 1.4 0 0 1-1.4 1.4H17" stroke="#2ECC8F" stroke-width="1.6"/><circle cx="10" cy="12" r="2.3" stroke="#2ECC8F" stroke-width="1.6"/></svg></div>
+            <div class="title">Sweep Coins</div>
+          </div>
+          <div class="amt-group">
+            <div class="amt-sub">
+              <div class="amt"><span class="num" data-count="38.20" data-fmt="dec">0.00</span><span class="unit">SC</span></div>
+              <div class="sub">Redeemable cash</div>
+            </div>
+            <div class="link">Redeem →</div>
+          </div>
         </div>
-        <div class="wf bal gems">
-          <div class="top"><div class="cur">◆</div><div class="lab">Sweep Gems</div></div>
-          <div class="amt"><span class="num" data-count="210" data-fmt="int">0</span><span class="tag">GEMS</span></div>
-          <div class="sub">Premium currency</div><button class="link">Open store →</button>
+        <div class="bal gems">
+          <div class="hdr">
+            <div class="cur"><svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M6 4h12l3 5-9 11L3 9l3-5Z" stroke="#B79CFF" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 9h18M9 4l-1.5 5L12 20l4.5-11L15 4" stroke="#B79CFF" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
+            <div class="title">Sweep Gems</div>
+          </div>
+          <div class="amt-group">
+            <div class="amt-sub">
+              <div class="amt"><span class="num" data-count="210" data-fmt="int">0</span><span class="unit">Gems</span></div>
+              <div class="sub">Unlocks exclusive games</div>
+            </div>
+            <div class="link">Open store →</div>
+          </div>
         </div>
       </div>
 
