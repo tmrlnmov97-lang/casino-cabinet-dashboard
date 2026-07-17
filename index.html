@@ -67,9 +67,8 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
 .xp-cap b{color:#e7e0f6;font-weight:700}
 .xp-cap span{color:#8e82b4}
 .capy{position:absolute;left:1113.5px;top:-1.5px;width:213px;height:222px;overflow:hidden;pointer-events:none;z-index:1; /* 71:535 */
-  transform-origin:50% 100%;animation:capyIdle 4.5s ease-in-out infinite}   /* ANIM: idle breathing/sway, anchored at the bottom */
-@keyframes capyIdle{0%,100%{transform:rotate(0deg) scale(1)}50%{transform:rotate(-1.2deg) scale(1.015)}}
-.capy img{position:absolute;left:-101.2%;top:0;width:210.59%;height:117.89%;max-width:none;display:block} /* exact crop from 71:535 */
+  mix-blend-mode:lighten}          /* clip's black bg melts into the dark card — no per-frame keying, no flicker */
+.capy img{position:absolute;left:-1px;top:0;height:262px;width:auto;max-width:none;display:block}  /* character at the Figma capy scale */
 .capy.cheer img{animation:capyCheer .7s ease} /* ANIM */
 @keyframes capyCheer{0%,100%{transform:rotate(0) translateY(0)}25%{transform:rotate(-3deg) translateY(-8px)}60%{transform:rotate(2deg) translateY(-4px)}}
 
@@ -223,7 +222,7 @@ body.loaded .bar .knob{left:583px}                  /* 71:531: left=583 */
         </div>
       </div>
     </div>
-    <div class="capy" id="capy"><img id="capyImg" src="assets/capy-figma.png" alt="Capy mascot"></div>
+    <div class="capy" id="capy"><img id="capyImg" src="assets/capy-rest.png" alt="Capy mascot"></div>
   </section>
 
   <!-- GRID -->
@@ -358,14 +357,12 @@ function spinWheel(btn){
 /* capy mascot: play the animation once, freeze on static, replay only after 30s */
 (function(){
   const img=document.getElementById('capyImg'); if(!img)return;
-  const STATIC='assets/capy-static.png', ANIM='assets/capybara.webp';
-  const PLAY=4950, REST=30000; let t1,t2;               /* PLAY≈one loop, REST=pause between plays */
+  const STATIC='assets/capy-rest.png', ANIM='assets/capy-anim.webp';
+  const PLAY=4900, REST=30000; let t1,t2;               /* PLAY = one clip (121f × 40ms), REST = pause between plays */
   const pre=new Image(); pre.src=ANIM;                  /* preload so first play is instant */
   function playOnce(){ img.src=ANIM; clearTimeout(t1); t1=setTimeout(()=>{ img.src=STATIC; }, PLAY); }
   function loop(){ playOnce(); clearTimeout(t2); t2=setTimeout(loop, PLAY+REST); }
-  /* Disabled: Figma has the POINTING capy, but the Runway clip is the HANDS-IN-POCKETS pose.
-     Re-enable (uncomment) once a pointing-pose animation exists, or if the pose swap is OK. */
-  // setTimeout(loop,1200);
+  setTimeout(loop,1200);   /* rests hands-in-pockets → every 30s pulls the hand out and points */
 })();
 addEventListener('load',()=>{requestAnimationFrame(()=>document.body.classList.add('loaded'));
   document.querySelectorAll('.bal .num').forEach(el=>countUp(el,parseFloat(el.dataset.count),el.dataset.fmt,1100));});
