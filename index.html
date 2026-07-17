@@ -260,14 +260,79 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
 @media (max-width:1120px){.grid{grid-template-columns:1fr}.rail{flex-direction:row;flex-wrap:wrap}.rail>*{flex:1;min-width:320px}}
 @media (max-width:820px){.profile{padding:20px 22px 150px;height:auto;flex-wrap:wrap}.capy{position:static;height:140px;margin-left:auto}.p-center{flex-basis:100%}}
 @media (max-width:720px){.app{padding:0 16px}.balances{grid-template-columns:1fr}.days{grid-template-columns:repeat(4,1fr)}.name-row .nm{font-size:30px}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ================= POLISH · micro-animations & hover ================= */
+/* staggered entrance (JS strips .reveal after settle → frees transform for hover) */
+.reveal{opacity:0;transform:translateY(22px)}
+body.loaded .reveal{opacity:1;transform:none;transition:opacity .6s ease,transform .78s cubic-bezier(.22,1,.36,1);transition-delay:var(--rd,0s)}
+
+/* card hover — lift + colored glow */
+.bal,.daily-hd,.missions-hd,.wheel-hd,.redeem-hd{transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s ease,border-color .28s ease}
+.bal:hover{transform:translateY(-5px)}
+.bal.gold:hover{box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 30px rgba(245,197,66,.24);border-color:rgba(245,197,66,.5)}
+.bal.sweep:hover{box-shadow:0 30px 62px rgba(0,0,0,.6),0 0 42px rgba(245,197,66,.36)}
+.bal.gems:hover{box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 30px rgba(124,77,255,.32);border-color:rgba(124,77,255,.5)}
+.bal .cur{transition:transform .34s cubic-bezier(.34,1.4,.5,1)}
+.bal:hover .cur{transform:scale(1.1) rotate(-6deg)}
+.daily-hd:hover,.missions-hd:hover{border-color:#4a3a80;box-shadow:0 26px 54px rgba(0,0,0,.5)}
+.wheel-hd:hover,.redeem-hd:hover{border-color:#4a3a80}
+
+/* day cells */
+.day{transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .22s ease,filter .2s ease}
+.day.today{cursor:pointer;animation:todayGlow 2.6s ease-in-out infinite}
+.day.today:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(245,197,66,.3);animation-play-state:paused}
+.day.claimed:hover,.day.bonus:hover{transform:translateY(-3px);filter:brightness(1.08)}
+@keyframes todayGlow{0%,100%{box-shadow:0 0 0 rgba(245,197,66,0)}50%{box-shadow:0 0 22px rgba(245,197,66,.32)}}
+
+/* mission rows + arrow nudge */
+.mission{transition:background .22s ease,border-color .22s ease,transform .22s ease,box-shadow .22s ease}
+.mission.m-play:hover,.mission.m-spin:hover{background:#241558;border-color:#3d2c74;transform:translateX(3px)}
+.mission.m-claim:hover{box-shadow:0 0 26px rgba(255,197,61,.22)}
+.m-arrow{transition:transform .22s ease}
+.mission:hover .m-arrow{transform:rotate(180deg) scaleY(-1) translateX(-3px)}
+
+/* ---- CTAs ---- */
+/* primary · Claim (attention pulse + shine sweep + hover pop) */
+.claim-btn{position:relative;overflow:hidden;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease,filter .2s ease;animation:claimPulse 2.6s ease-in-out infinite}
+.claim-btn::before{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);pointer-events:none;animation:shine 3.6s ease-in-out infinite}
+.claim-btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 10px 34px rgba(255,197,61,.55),0 0 44px rgba(255,197,61,.32);filter:brightness(1.05);animation-play-state:paused}
+.claim-btn:active{transform:translateY(0) scale(.98)}
+.claim-btn:disabled{animation:none}.claim-btn:disabled::before{display:none}
+@keyframes claimPulse{0%,100%{box-shadow:0 0 22px rgba(255,197,61,.32)}50%{box-shadow:0 0 36px rgba(255,197,61,.55)}}
+@keyframes shine{0%,55%{left:-70%}80%,100%{left:145%}}
+
+/* secondary · Spin now */
+.w-spin-btn{transition:background .22s ease,border-color .22s ease,box-shadow .25s ease,transform .18s ease}
+.w-spin-btn:hover{background:#2a1c68;border-color:#9b7bff;box-shadow:0 0 24px rgba(124,77,255,.45);transform:translateY(-1px)}
+.w-spin-btn:active{transform:translateY(0) scale(.98)}
+
+/* tertiary · mission claim */
+.m-claim-btn{transition:background .2s ease,box-shadow .22s ease,transform .18s ease}
+.m-claim-btn:hover{background:rgba(255,197,61,.3);box-shadow:0 0 18px rgba(255,197,61,.35);transform:translateY(-1px)}
+.m-claim-btn:active{transform:scale(.96)}
+
+/* balance links */
+.bal .link{transition:color .2s ease,transform .2s ease;width:max-content}
+.bal .link:hover{color:#c3a6ff;transform:translateX(3px)}
+.bal.sweep .link:hover{color:#4be0a4}
+
+/* topbar */
+.wf-pill,.wf-circle{transition:filter .2s ease,transform .2s ease;cursor:pointer}
+.wf-pill:hover,.wf-circle:hover{filter:brightness(1.12);transform:translateY(-1px)}
+
+/* ambient micro-motion */
+.streak img{transform-origin:50% 80%;animation:flicker 2.2s ease-in-out infinite}
+@keyframes flicker{0%,100%{transform:scale(1) rotate(0);opacity:1}45%{transform:scale(1.12) rotate(-3deg);opacity:.92}70%{transform:scale(.96) rotate(2deg)}}
+.bal.sweep .badge{animation:badgeGlow 2.8s ease-in-out infinite}
+@keyframes badgeGlow{0%,100%{box-shadow:0 6px 16px rgba(0,0,0,.4)}50%{box-shadow:0 6px 16px rgba(0,0,0,.4),0 0 16px rgba(245,197,66,.42)}}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
 <div class="app">
 
   <!-- TOP BAR (wireframe) -->
-  <div class="topbar">
+  <div class="topbar reveal" style="--rd:0s">
     <div class="wf-logo">LOGO</div>
     <div class="top-right">
       <div class="wf-circle"></div>
@@ -276,7 +341,7 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
   </div>
 
   <!-- PROFILE (colored HD) -->
-  <section class="profile">
+  <section class="profile reveal" style="--rd:.05s">
     <div class="top-glow"><img src="assets/top-glow.svg" alt=""></div>
     <div class="p-row">
       <div class="avatar-block">
@@ -307,7 +372,7 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
 
       <!-- BALANCES (HD — Figma 108:64) -->
       <div class="balances">
-        <div class="bal gold">
+        <div class="bal gold reveal" style="--rd:.12s">
           <div class="hdr">
             <div class="cur"><img src="assets/coin-gold.png" alt=""></div>
             <div class="title">Gold Coins</div>
@@ -320,7 +385,7 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
             <div class="link">+ Get more</div>
           </div>
         </div>
-        <div class="bal sweep">
+        <div class="bal sweep reveal" style="--rd:.18s">
           <div class="badge">Real prizes</div>
           <div class="hdr">
             <div class="cur"><img src="assets/coin-sweep.png" alt=""></div>
@@ -334,7 +399,7 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
             <div class="link">Redeem →</div>
           </div>
         </div>
-        <div class="bal gems">
+        <div class="bal gems reveal" style="--rd:.24s">
           <div class="hdr">
             <div class="cur"><img src="assets/coin-gems.png" alt=""></div>
             <div class="title">Sweep Gems</div>
@@ -350,7 +415,7 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
       </div>
 
       <!-- DAILY LOGIN (wireframe) -->
-      <div class="daily-hd">
+      <div class="daily-hd reveal" style="--rd:.3s">
         <div class="hdr">
           <div class="ht"><div class="t">Daily Login Bonus</div><div class="s">Keep your streak — Day 3 is ready</div></div>
           <div class="streak"><img src="assets/flame.svg" alt=""><span>Streak: 3 days</span></div>
@@ -371,7 +436,7 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
       </div>
 
       <!-- MISSIONS (HD — Figma 130:170) -->
-      <div class="missions-hd">
+      <div class="missions-hd reveal" style="--rd:.42s">
         <div class="ht"><div class="t">Missions</div><div class="s">Complete tasks to earn rewards</div></div>
         <div class="m-bubble">1 ready — grab it!</div>
         <div class="m-capy"><img src="assets/m-capy.png" alt=""></div>
@@ -398,7 +463,7 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
 
     <div class="rail">
       <!-- LUCKY WHEEL (HD — Figma 149:263) -->
-      <div class="wheel-hd">
+      <div class="wheel-hd reveal" style="--rd:.16s">
         <div class="wheel-deco"><div class="rot"><img src="assets/wheel-deco.png" alt=""></div></div>
         <div class="wheel-img" id="wheel"><img src="assets/wheel-main.png" alt=""></div>
         <div class="w-content">
@@ -416,7 +481,7 @@ body.loaded .bar .knob{left:calc(65% - 14px)}       /* rides fill end proportion
       </div>
 
       <!-- REDEEM (HD — State B · below minimum) -->
-      <div class="redeem-hd">
+      <div class="redeem-hd reveal" style="--rd:.34s">
         <div class="rd-t">Redeem Sweep Coins</div>
         <div class="rd-s">Cash out your Sweep Coins</div>
         <div class="rd-total"><div class="l">Total balance</div><div class="v">20.60 SC</div></div>
@@ -445,7 +510,7 @@ function countUp(el,to,type,dur){                                   /* ANIM: num
 }
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);}
 function confetti(x,y){                                             /* ANIM: confetti */
-  if(reduce)return;const cols=['#B4B4BE','#8A8A95','#6C6C77','#2E2E38','#C7C7D1'];
+  if(reduce)return;const cols=['#FFC53D','#7C4DFF','#2ECC8F','#F5A00B','#C9BDFF','#FFFFFF'];
   for(let i=0;i<24;i++){const c=document.createElement('div');c.className='confetti';
     c.style.left=x+'px';c.style.top=y+'px';c.style.background=cols[i%cols.length];document.body.appendChild(c);
     const ang=Math.random()*Math.PI*2,sp=4+Math.random()*7,vx=Math.cos(ang)*sp,vy=Math.sin(ang)*sp-6;let px=0,py=0,t=0;const rot=Math.random()*360;
@@ -491,7 +556,8 @@ function spinWheel(btn){
   setTimeout(loop,1200);   /* rests hands-in-pockets → every 30s pulls the hand out and points */
 })();
 addEventListener('load',()=>{requestAnimationFrame(()=>document.body.classList.add('loaded'));
-  document.querySelectorAll('.bal .num').forEach(el=>countUp(el,parseFloat(el.dataset.count),el.dataset.fmt,1100));});
+  document.querySelectorAll('.bal .num').forEach(el=>countUp(el,parseFloat(el.dataset.count),el.dataset.fmt,1100));
+  setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.remove('reveal')),1700);});
 </script>
 </body>
 </html>
